@@ -52,11 +52,12 @@ int main(void)
 
         double rad = 1.0;
         double x, y;
-        glBegin(GL_LINE_STRIP); //점을 추가해주면 바로바로 직전의 점과 연결하여 선을 만들어준다
+        glBegin(GL_LINE_STRIP); //점을 추가해주면 바로바로 직전의 점과 연결하여 선을 만들어준다.
+
         for (int i = 0; i < 360; i++)
         {
             double angle;
-            angle = i * 3.141592 / 180;  //점의 좌표를 구하기 위해 sin,cos에 사용할 각도를 구한다
+            angle = i * 3.141592 / 180;  //점의 좌표를 구하기 위해 sin,cos에 사용할 각도를 구한다.
             x = rad * cos(angle);      //cos은 밑변/빗변(반지름) 이기 때문에 반지름을 곱하면 밑변이 나온다.
             y = rad * sin(angle);      //sin은 높이/빗변(반지름) 이기 떄문에 반지름을 곱하면 높이가 나온다.
             glVertex2f(x, y);      //위에서 구한 밑변(x),높이(y)의 좌표로 점을 원이 완성될때까지 찍어준다.
