@@ -49,6 +49,7 @@ int main(void)
         glClearColor(.0f, 0.0f, 0.0f, 0.1f);
         glClear(GL_COLOR_BUFFER_BIT);
         glColor3f(0.4f, 0.5f, 0.5f);
+
         double rad = 1.0;
         double x, y;
         glBegin(GL_LINE_STRIP); //점을 추가해주면 바로바로 직전의 점과 연결하여 선을 만들어준다
