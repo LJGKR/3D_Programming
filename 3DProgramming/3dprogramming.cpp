@@ -41,7 +41,7 @@ Transform transform;  //world 행렬이 될 transform
 
 //<문제>////////전역변수 쓰는곳////////////////////////////////////////////////////////////
 
-
+float scaleSize = 0.5f;
 float scaleNum = 0.01f;
 float translateNum = 0.001f;
 int rotationNum = 1;
@@ -151,37 +151,43 @@ void Update()
     {
         //Update로직
         //<문제>//////////////////////////////////////////////////////////////////////////////////
-        this_thread::sleep_for(chrono::milliseconds((int)(1.0 / renderDuration.count()))); //프레임당 이동시키기 위한 슬립
 
             transform.rotation = glm::mat3(
-                glm::cos(glm::radians((float)rotationNum++)), glm::sin(-glm::radians((float)rotationNum++)), 0,
-                glm::sin(glm::radians((float)rotationNum++)), glm::cos(glm::radians((float)rotationNum++)), 0,
+                glm::cos(glm::radians((float)rotationNum)), glm::sin(-glm::radians((float)rotationNum)), 0,
+                glm::sin(glm::radians((float)rotationNum)), glm::cos(glm::radians((float)rotationNum)), 0,
                 0, 0, 1);                   //물체 회전
             
+            rotationNum++;
+
             if (isScaling == true)
             {
                 transform.scale = glm::mat3(
-                    scaleNum += 0.01f, 0, 0,
-                    0, scaleNum += 0.01f, 0,
+                    scaleSize, 0, 0,
+                    0, scaleSize, 0,
                     0, 0, 1
                 );
-                if (scaleNum >= 1.3f) isScaling = false;
+                scaleSize += scaleNum;
+                if (scaleSize >= 1.3f) isScaling = false;
             }
             else if (isScaling == false)
             {
                 transform.scale = glm::mat3(
-                    scaleNum -= 0.01f, 0, 0,
-                    0, scaleNum -= 0.01f, 0,
+                    scaleSize, 0, 0,
+                    0, scaleSize, 0,
                     0, 0, 1
                 );
-                if (scaleNum <= 0.7f) isScaling = true;
-            }                               //물체 크기변환..
+                scaleSize -= scaleNum;
+                if (scaleSize <= 0.7f) isScaling = true;
+            }                             //물체 크기변환..
+
             
             transform.translate = glm::mat3(
                 1, 0, 0,
                 0, 1, 0,
-                translateNum += 0.001f, 0, 1
-            );
+                translateNum, 0, 1
+            );                            //물체 이동..
+
+            translateNum += 0.001f;
 
         //1. translate 를 프레임당 오른쪽으로 0.001씩 누적시켜서 물체를 이동해보세요.
         //2. Rotation 을 프레임당 1도씩 누적시켜서 물체를 회전시켜보세요.
